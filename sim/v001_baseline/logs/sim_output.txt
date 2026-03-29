@@ -1,0 +1,22 @@
+VCD info: dumpfile v001_baseline.vcd opened for output.
+========================================
+v001 BASELINE REGFILE SIMULATION START
+XLEN=32  NUMREGS=32
+========================================
+[TEST 1] Writing all registers x1-x31...
+[TEST 2] Reading back and verifying...
+[TEST 3] Rapid write/read stress...
+[TEST 4] 50 idle cycles (no writes)...
+========================================
+v001 BASELINE SIMULATION RESULTS
+========================================
+Total cycles:        142
+Write cycles:        46
+Idle cycles:         96
+Write activity (%):  32%
+Errors:              0
+STATUS: PASS
+========================================
+NOTE: In baseline, clock toggles ALL 31x32 = 992
+flip-flops every cycle regardless of we3.
+========================================
