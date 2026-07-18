@@ -1,0 +1,40 @@
+VCD info: dumpfile v002_icg.vcd opened for output.
+========================================
+v002 ICG-GATED REGFILE SIMULATION START
+XLEN=32  NUMREGS=32
+========================================
+[TEST 1] Writing all registers x1-x31...
+[TEST 2] Reading back and verifying...
+  ERROR: x1 = 0x00000000, expected 0xa0000001
+[TEST 3] Rapid write/read stress...
+  ERROR: x1 = 0x00000000, expected 0xdead0001
+  ERROR: x2 = 0xa0000002, expected 0xdead0002
+  ERROR: x3 = 0xa0000003, expected 0xdead0003
+  ERROR: x4 = 0xa0000004, expected 0xdead0004
+  ERROR: x5 = 0xa0000005, expected 0xdead0005
+  ERROR: x6 = 0xa0000006, expected 0xdead0006
+  ERROR: x7 = 0xa0000007, expected 0xdead0007
+  ERROR: x8 = 0xa0000008, expected 0xdead0008
+  ERROR: x9 = 0xa0000009, expected 0xdead0009
+  ERROR: x10 = 0xa000000a, expected 0xdead000a
+  ERROR: x11 = 0xa000000b, expected 0xdead000b
+  ERROR: x12 = 0xa000000c, expected 0xdead000c
+  ERROR: x13 = 0xa000000d, expected 0xdead000d
+  ERROR: x14 = 0xa000000e, expected 0xdead000e
+  ERROR: x15 = 0xa000000f, expected 0xdead000f
+[TEST 4] 50 idle cycles (gated_clk should NOT toggle)...
+========================================
+v002 ICG-GATED SIMULATION RESULTS
+========================================
+Total main clk cycles:   142
+Write cycles (we3=1):    46
+Idle cycles  (we3=0):    96
+Gated clk negedge count: 47
+Write activity (%):      32%
+Clock gating efficiency: 66%
+Errors:                  16
+STATUS: FAIL
+========================================
+POWER IMPACT: In baseline, 992 FFs toggle every cycle.
+With ICG, 992 FFs only toggle 47/142 cycles = 33% of the time.
+========================================
