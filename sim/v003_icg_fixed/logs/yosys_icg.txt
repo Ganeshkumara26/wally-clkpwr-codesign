@@ -1,0 +1,30 @@
+
+   regfile_icg                       1
+     icg_cell_neg                    1
+
+   Number of wires:               4080
+   Number of wire bits:           5146
+   Number of public wires:          47
+   Number of public wire bits:    1113
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               5092
+     $_ANDNOT_                    1095
+     $_AND_                          1
+     $_AOI3_                         2
+     $_DFF_N_                      992
+     $_DLATCH_P_                     1
+     $_MUX_                       2912
+     $_NAND_                         5
+     $_NOR_                          6
+     $_NOT_                          7
+     $_ORNOT_                        5
+     $_OR_                          53
+     $_XNOR_                         2
+     $_XOR_                         11
+
+End of script. Logfile hash: c06ed01860
+CPU: user 1.63s system 0.04s, MEM: 56.02 MB total, 48.89 MB resident
+Yosys 0.9 (git sha1 1979e0b)
+Time spent: 25% 15x opt_expr (0 sec), 19% 17x opt_clean (0 sec), ...

@@ -1,0 +1,20 @@
+VCD info: dumpfile v003_icg_fixed.vcd opened for output.
+========================================
+v003 ICG-FIXED REGFILE SIMULATION
+========================================
+[TEST 1] Writing x1-x31...
+[TEST 2] Read-back verification...
+[TEST 3] Write/read stress x1-x15...
+[TEST 4] 50 idle cycles...
+========================================
+v003 RESULTS
+========================================
+Total cycles:            143
+Write cycles (we3=1):    46
+Idle cycles (we3=0):     97
+Gated clk toggles:       63
+Write activity:          32%
+Clock gating efficiency: 55%
+Errors:                  0
+STATUS: PASS
+========================================

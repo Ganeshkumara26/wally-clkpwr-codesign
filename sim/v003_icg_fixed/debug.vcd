@@ -1,0 +1,166 @@
+$date
+	Tue Jul 21 13:18:05 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_debug $end
+$var wire 32 ! rd2 [31:0] $end
+$var wire 32 " rd1 [31:0] $end
+$var reg 5 # a1 [4:0] $end
+$var reg 5 $ a3 [4:0] $end
+$var reg 1 % clk $end
+$var reg 1 & reset $end
+$var reg 32 ' wd3 [31:0] $end
+$var reg 1 ( we3 $end
+$scope module dut $end
+$var wire 5 ) a1 [4:0] $end
+$var wire 5 * a2 [4:0] $end
+$var wire 5 + a3 [4:0] $end
+$var wire 1 % clk $end
+$var wire 1 & reset $end
+$var wire 1 , rf_clk_en $end
+$var wire 32 - wd3 [31:0] $end
+$var wire 1 ( we3 $end
+$var wire 32 . rd2 [31:0] $end
+$var wire 32 / rd1 [31:0] $end
+$var wire 1 0 gated_clk $end
+$var integer 32 1 i [31:0] $end
+$scope module u_icg $end
+$var wire 1 % clk_in $end
+$var wire 1 0 clk_out $end
+$var wire 1 , enable $end
+$var wire 1 2 test_en $end
+$var reg 1 3 en_latch $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x3
+02
+b100000 1
+00
+b0 /
+b0 .
+b0 -
+1,
+b0 +
+b0 *
+b0 )
+0(
+b0 '
+1&
+0%
+b0 $
+b0 #
+b0 "
+b0 !
+$end
+#5000
+10
+13
+1%
+#10000
+b100000 1
+00
+0%
+#15000
+10
+1%
+#20000
+b100000 1
+00
+0%
+#25000
+10
+1%
+#30000
+b100000 1
+00
+0%
+#35000
+03
+0,
+00
+0&
+1%
+#40000
+0%
+#45000
+10
+13
+1,
+b11001010111111101011101010111110 '
+b11001010111111101011101010111110 -
+b1 $
+b1 +
+1(
+1%
+#50000
+00
+0%
+#55000
+03
+b11001010111111101011101010111110 "
+b11001010111111101011101010111110 /
+0,
+00
+b1 #
+b1 )
+0(
+1%
+#60000
+0%
+#65000
+1%
+#70000
+0%
+#75000
+10
+13
+1,
+b11011110101011011011111011101111 '
+b11011110101011011011111011101111 -
+b10 $
+b10 +
+1(
+1%
+#80000
+00
+0%
+#85000
+03
+b11011110101011011011111011101111 "
+b11011110101011011011111011101111 /
+0,
+00
+b10 #
+b10 )
+0(
+1%
+#90000
+0%
+#95000
+1%
+#100000
+0%
+#105000
+1%
+#110000
+0%
+#115000
+1%
+#120000
+0%
+#125000
+1%
+#130000
+0%
+#135000
+1%
+#136000

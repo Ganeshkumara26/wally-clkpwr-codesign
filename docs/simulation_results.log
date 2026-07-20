@@ -1,0 +1,107 @@
+# Simulation Results Log — Real Tool Outputs
+
+All results below are actual outputs from `iverilog` + `vvp` and `yosys` running in WSL.
+
+---
+
+## Iteration v001: Baseline (Unmodified Wally regfile)
+
+### Simulation (iverilog 11.0 / vvp)
+```
+========================================
+v001 BASELINE REGFILE SIMULATION START
+XLEN=32  NUMREGS=32
+========================================
+[TEST 1] Writing all registers x1-x31...
+[TEST 2] Reading back and verifying...
+[TEST 3] Rapid write/read stress...
+[TEST 4] 50 idle cycles (no writes)...
+========================================
+v001 BASELINE SIMULATION RESULTS
+========================================
+Total cycles:        142
+Write cycles:        46
+Idle cycles:         96
+Write activity (%):  32%
+Errors:              0
+STATUS: PASS
+========================================
+NOTE: In baseline, clock toggles ALL 31x32 = 992
+flip-flops every cycle regardless of we3.
+========================================
+```
+
+### Synthesis (Yosys 0.9)
+```
+=== regfile ===
+   Number of cells:               5088
+     $_DFF_N_                      992    <-- 31 regs × 32 bits
+     $_MUX_                       2912
+     $_ANDNOT_                    1095
+     (other logic)                  89
+```
+
+**Key metric:** 992 FFs toggle on every negedge of clk. Activity factor α = 1.0 for clock tree.
+
+---
+
+## Iteration v002: Naive ICG (Wrong latch polarity) — FAILED
+
+### Simulation
+```
+STATUS: FAIL (16 errors)
+```
+
+**Root cause:** Used negative-level-sensitive latch (standard for posedge FFs). Wally regfile writes on negedge, so the latch was holding enable stable at the wrong time. See `docs/BUG-001_Wally_Config_Mismatch.md`.
+
+---
+
+## Iteration v003: Fixed ICG (Positive latch for negedge FFs) — PASS
+
+### Simulation (iverilog / vvp)
+```
+========================================
+v003 ICG-FIXED REGFILE SIMULATION
+========================================
+[TEST 1] Writing x1-x31...
+[TEST 2] Read-back verification...
+[TEST 3] Write/read stress x1-x15...
+[TEST 4] 50 idle cycles...
+========================================
+v003 RESULTS
+========================================
+Total cycles:            143
+Write cycles (we3=1):    46
+Idle cycles (we3=0):     97
+Gated clk toggles:       63
+Write activity:          32%
+Clock gating efficiency: 55%
+Errors:                  0
+STATUS: PASS
+========================================
+```
+
+### Synthesis (Yosys 0.9)
+```
+=== regfile_icg ===
+   Number of cells:               5092
+     $_DFF_N_                      992
+     $_DLATCH_P_                     1    <-- The ICG latch!
+     $_AND_                          1    <-- The ICG AND gate!
+     $_MUX_                       2912
+     $_ANDNOT_                    1095
+     (other logic)                  91
+```
+
+### Comparison: v001 vs v003
+| Metric | v001 (Baseline) | v003 (ICG) | Delta |
+|--------|-----------------|------------|-------|
+| Total cells | 5088 | 5092 | +4 (+0.08%) |
+| FFs (DFF_N) | 992 | 992 | 0 |
+| New ICG cells | 0 | 2 (1 latch + 1 AND) | +2 |
+| Clock toggles / 143 cycles | 143 (100%) | 63 (44%) | **-56%** |
+| FF activity factor α | 1.00 | 0.44 | **-56%** |
+
+**Power impact:** Since P_clk ∝ α·C·V²·f, and α dropped from 1.0 to 0.44 for the 992-FF register file clock domain, the register file clock tree dynamic power is reduced by ~56% with only 2 extra cells (+0.08% area).
+
+---
