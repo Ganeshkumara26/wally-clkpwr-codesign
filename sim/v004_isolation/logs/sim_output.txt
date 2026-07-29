@@ -1,0 +1,20 @@
+VCD info: dumpfile v004_isolation.vcd opened for output.
+========================================
+v004 ALU OPERAND ISOLATION SIMULATION
+========================================
+[TEST 1] Active Cycles: ADD, SUB, XOR, AND...
+[TEST 2] Inactive Cycles (Toggle suppression test)...
+[TEST 3] Back to Active Compute...
+========================================
+v004 ISOLATION RESULTS
+========================================
+Active cycles:           4
+Inactive cycles:         50
+Errors (Equivalence):    0
+----------------------------------------
+Combinational Toggle Count (Adder cloud):
+  Baseline ALU toggles: 122
+  Isolated ALU toggles: 8
+  Toggle Reduction:     93%
+========================================
+STATUS: PASS
