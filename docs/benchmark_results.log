@@ -1,0 +1,18 @@
+# FINAL BENCHMARK ACTIVITY REPORT
+**Workload**: 100-cycle synthetic Dhrystone mix (40% Compute, 20% Memory, 20% Branch, 20% Stalls)
+
+## 1. REGISTER FILE CLOCK TREE (Clock Gating)
+*   **Baseline FF clock negedges**: 101
+*   **Optimized FF clock negedges**: 60
+*   **-> Dynamic Power Reduction: 40%**
+
+**Analysis**: The ICG (Integrated Clock Gating) cell successfully gated the clock during the 60% of cycles where `we3` was low (Memory stalls, Branches, NOPs). This scales perfectly and saves massive power on the clock tree.
+
+## 2. ALU COMBINATIONAL CLOUD (Operand Isolation)
+*   **Baseline adder transitions**: 70
+*   **Isolated adder transitions**: 88
+*   **-> Dynamic Power Reduction: -25% (INCREASED!)**
+
+**Analysis**: This was a huge engineering lesson! Naively AND-clamping the operands to `0` when `alu_active = 0` actually *caused* transitions. If the upstream pipeline registers hold their values during a stall, the baseline ALU sees no transitions. But our isolated ALU clamped the inputs from `DATA -> 00000000` (causing toggles) and then back `00000000 -> DATA` when active again. 
+
+**Conclusion**: Clock gating is unequivocally good for the register file. Operand isolation via AND-clamping should only be applied to buses that are extremely noisy during stalls, NOT buses that naturally hold their state.

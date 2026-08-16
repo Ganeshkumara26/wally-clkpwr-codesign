@@ -1,0 +1,14 @@
+VCD info: dumpfile v007_benchmark.vcd opened for output.
+========================================
+FINAL BENCHMARK ACTIVITY REPORT
+========================================
+1. REGISTER FILE CLOCK TREE
+   Baseline FF clock negedges: 101
+   Optimized FF clock negedges: 60
+   -> Dynamic Power Reduction: 40%
+----------------------------------------
+2. ALU COMBINATIONAL CLOUD
+   Baseline adder transitions: 70
+   Isolated adder transitions: 88
+   -> Dynamic Power Reduction: -25%
+========================================
