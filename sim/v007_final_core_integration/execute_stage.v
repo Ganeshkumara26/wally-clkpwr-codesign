@@ -50,9 +50,12 @@ module execute_stage #(
   // R-type uses RS2 as operand B. Everything else uses Immediate.
   assign operand_b = (opcode == OP_RTYPE || opcode == OP_BRANCH) ? reg_rs2 : imm;
 
-  // ALU Control (simplified for ADD only for this test)
+  // ALU Control
   wire sub_arith = (is_rtype && instr[30]); // SUB if bit 30 is set
-  wire [2:0] alu_select = 3'b000; // Force ADD/SUB
+  
+  // Use funct3 for R-type/I-type, otherwise default to ADD (3'b000) for address calculations
+  wire [2:0] funct3 = instr[14:12];
+  wire [2:0] alu_select = (is_rtype | is_itype) ? funct3 : 3'b000;
 
   // Instantiate Isolated ALU
   alu_isolated #(.XLEN(XLEN)) u_alu (
