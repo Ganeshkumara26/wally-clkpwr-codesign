@@ -39,7 +39,7 @@ module tb_benchmark;
   always @(negedge clk) begin
     if (!reset) base_rf_toggles = base_rf_toggles + 1;
   end
-  always @(u_base.u_alu.Sum) begin
+  always @(negedge clk) begin
     if (!reset && (u_base.u_alu.Sum !== prev_base_sum)) begin
       base_alu_toggles = base_alu_toggles + 1;
       prev_base_sum = u_base.u_alu.Sum;
@@ -50,7 +50,7 @@ module tb_benchmark;
   always @(negedge u_opt.u_regfile.gated_clk) begin
     if (!reset) opt_rf_toggles = opt_rf_toggles + 1;
   end
-  always @(u_opt.u_execute.u_alu.Sum) begin
+  always @(negedge clk) begin
     if (!reset && (u_opt.u_execute.u_alu.Sum !== prev_opt_sum)) begin
       opt_alu_toggles = opt_alu_toggles + 1;
       prev_opt_sum = u_opt.u_execute.u_alu.Sum;
@@ -83,8 +83,8 @@ module tb_benchmark;
       instr_type = {$random} % 100;
       
       if (instr_type < 40) begin
-        // 40% Compute: R-Type ADD (ALU Active, RegWrite Active)
-        instr = {7'b0000000, 5'd10, 5'd11, 3'b000, 5'd12, 7'b0110011};
+        // 40% Compute: R-Type Random Op (ADD, XOR, SLL, etc.)
+        instr = {7'b0000000, 5'd10, 5'd11, 3'(3'b111 & $random), 5'd12, 7'b0110011};
         imm = 0;
         we3 = 1;
         rd_addr = 12;
