@@ -46,4 +46,4 @@ For a negedge-triggered register file, the ICG latch must be **positive-level-se
 3. The falling edge of the gated clock arrives exactly when the FFs expect it.
 
 ## Status
-Open — implementing fix in v003.
+Resolved in v003.
